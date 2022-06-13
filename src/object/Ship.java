@@ -18,6 +18,8 @@ public class Ship extends GameObject {
 
     @Override
     public void render(Graphics graphics) {
+        Graphics2D g2d = (Graphics2D) graphics;
 
+        g2d.drawRect((int) getX(), (int) getY(), 26, 16);
     }
 }

@@ -1,3 +1,8 @@
+package main;
+
+import system.CreateWorld;
+import system.GameConducting;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -10,6 +15,8 @@ public class Main extends JFrame implements Runnable{
     private Canvas canvas;
     private byte cfpd, fps;
     private int caps, aps, runTime;
+    private CreateWorld world;
+    private GameConducting conducting;
 
     private long preStart;
     private long timer;
@@ -39,6 +46,9 @@ public class Main extends JFrame implements Runnable{
         cfpd = 0;
         caps = 0;
         runTime = 0;
+        conducting = new GameConducting();
+        world = new CreateWorld(conducting);
+        world.createObjects();
 
         this.setResizable(true);
         this.setVisible(true);
@@ -80,7 +90,7 @@ public class Main extends JFrame implements Runnable{
     }
 
     private void update(int dt){
-
+        conducting.update(dt);
     }
 
     private void draw(){
@@ -90,14 +100,26 @@ public class Main extends JFrame implements Runnable{
             return;
         }
         Graphics g = bs.getDrawGraphics();
-        g.clearRect(0,0,Constantes.WIDTH,Constantes.HEIGHT);
+        g.clearRect(0,0, Constantes.WIDTH, Constantes.HEIGHT);
         g.setColor(Color.WHITE);
         //start draw whatever------------------------------------------------------------------------------------------
-        g.drawString("FPS: "+fps+", APS: "+ aps +", Run time: "+runTime+"s.", 10, 15);
+        g.drawString("FPS: "+fps+", APS: "+ aps +", Run time: "+formatRunTime(), 10, 15);
+        conducting.render(g);
         //end draw-----------------------------------------------------------------------------------------------------
         g.dispose();
         bs.show();
         cfpd++;
+    }
+
+    private String formatRunTime(){
+        String time = "0";
+        if(runTime > 0 && runTime < 60) time = runTime+" s";
+        else if(runTime/60 > 0 && runTime/60 < 60){
+            String min = String.valueOf(runTime/60);
+            String s = String.valueOf(runTime-runTime/60*60);
+            time = min+":"+s+" min";
+        }
+        return time;
     }
 
     /**
