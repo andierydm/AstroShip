@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyBoard implements KeyListener {
     private boolean[] keys;
-    public static boolean right, left, up, down;
+    public static boolean right, left, up, down, exits;
 
     public KeyBoard(){
         keys = new boolean[255];
@@ -13,8 +13,16 @@ public class KeyBoard implements KeyListener {
         left = false;
         up = false;
         down = false;
+        exits = false;
     }
 
+    public void refresh(){
+        right = keys[KeyEvent.VK_RIGHT];
+        left = keys[KeyEvent.VK_LEFT];
+        up = keys[KeyEvent.VK_UP];
+        down = keys[KeyEvent.VK_DOWN];
+        exits = keys[KeyEvent.VK_ESCAPE];
+    }
 
     /**
      * Invoked when a key has been typed.
@@ -37,24 +45,7 @@ public class KeyBoard implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-        switch (key){
-            case 25->{
-                keys[key] = true;
-                left = keys[key];
-            }
-            case 26->{
-                keys[key] = true;
-                up = keys[key];
-            }
-            case 27->{
-                keys[key] = true;
-                right = keys[key];
-            }case 28->{
-                keys[key] = true;
-                down = keys[key];
-            }
-        }
+        keys[e.getKeyCode()] = true;
     }
 
     /**
@@ -66,23 +57,6 @@ public class KeyBoard implements KeyListener {
      */
     @Override
     public void keyReleased(KeyEvent e) {
-        int key = e.getKeyCode();
-        switch (key){
-            case 25->{
-                keys[key] = false;
-                left = keys[key];
-            }
-            case 26->{
-                keys[key] = false;
-                up = keys[key];
-            }
-            case 27->{
-                keys[key] = false;
-                right = keys[key];
-            }case 28->{
-                keys[key] = false;
-                down = keys[key];
-            }
-        }
+        keys[e.getKeyCode()] = false;
     }
 }

@@ -1,5 +1,6 @@
 package main;
 
+import input.KeyBoard;
 import system.CreateWorld;
 import system.GameConducting;
 
@@ -17,6 +18,7 @@ public class Main extends JFrame implements Runnable{
     private int caps, aps, runTime;
     private CreateWorld world;
     private GameConducting conducting;
+    private KeyBoard keyBoard;
 
     private long preStart;
     private long timer;
@@ -38,6 +40,9 @@ public class Main extends JFrame implements Runnable{
         canvas = new Canvas();
         canvas.setBackground(Color.BLACK);
         this.getContentPane().add(canvas, BorderLayout.CENTER);
+
+        keyBoard = new KeyBoard();
+        canvas.addKeyListener(keyBoard);
 
         running = false;
 
@@ -71,6 +76,7 @@ public class Main extends JFrame implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.exit(0);
     }
 
     private void clouseingComant(){
@@ -90,7 +96,11 @@ public class Main extends JFrame implements Runnable{
     }
 
     private void update(int dt){
+        keyBoard.refresh();
         conducting.update(dt);
+        if(KeyBoard.exits){
+            stop();
+        }
     }
 
     private void draw(){
