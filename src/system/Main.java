@@ -139,9 +139,6 @@ public class Main extends JFrame implements Runnable {
     private void update(int dt) {
         keyboardInput.refresh();
         conducting.update(dt);
-        if (KeyboardInput.exits) {
-            stopGameThread();
-        }
     }
 
     private void render() {
