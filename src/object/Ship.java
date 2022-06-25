@@ -1,54 +1,22 @@
 package object;
 
-import math.Vector;
 import system.input.KeyboardInput;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-public class Ship extends GameObject {
-    private Vector direction;
-    private Vector velocity;
-    private BufferedImage texture;
-    private AffineTransform at;
-    private final double defaultMagnitude;
-    private Vector aceleration;
-    private final float maxvel;
-    protected double angle;
-
+public class Ship extends ShipsObject {
 
     public Ship() {
         super(GameObjectType.Player);
-        aceleration = new Vector();
-        velocity = new Vector(1,1);
-        direction = new Vector(0,1);
-        loadTexture();
-        defaultMagnitude = 0.08;
-        maxvel = 5.0f;
-        this.angle = 0;
+        loadTexture("../resource/nave.png");
     }
 
-    public Ship(float x, float y, GameObjectType type, float maxVel) {
+    public Ship(float x, float y, GameObjectType type, float maxVel, double defaultMagnitude) {
         super(x, y, type);
-        loadTexture();
-        aceleration = new Vector();
-        velocity = new Vector(0,-1);
-        direction = new Vector(0,1);
-        defaultMagnitude = 0.08;
+        loadTexture("../resource/nave.png");
+        this.defaultMagnitude = defaultMagnitude;
         this.maxvel= maxVel;
-        this.angle = 0;
-    }
-
-    private void loadTexture(){
-        try {
-            texture = ImageIO.read(Ship.class.getResource("../resource/nave.png"));
-            System.out.println(texture);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -76,8 +44,8 @@ public class Ship extends GameObject {
         Graphics2D g2d = (Graphics2D) graphics;
 
         at = AffineTransform.getTranslateInstance(getX(), getY());
-        at.rotate(angle, texture.getWidth()/2, texture.getHeight()/2+12);
+        at.rotate(angle, getTexture().getWidth()/2, getTexture().getHeight()/2+12);
 
-        g2d.drawImage(texture, at, null);
+        g2d.drawImage(getTexture(), at, null);
     }
 }

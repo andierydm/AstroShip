@@ -16,7 +16,6 @@ public abstract class GameObject {
         this.x = 0;
         this.y = 0;
         this.gameObjectType = gameObjectType;
-
     }
 
     public GameObject(float x, float y, GameObjectType gameObjectType) {
@@ -27,7 +26,6 @@ public abstract class GameObject {
         this.x = x;
         this.y = y;
         this.gameObjectType = gameObjectType;
-
     }
 
     public abstract void update(long deltaTime);

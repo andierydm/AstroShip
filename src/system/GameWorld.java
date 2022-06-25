@@ -11,7 +11,7 @@ public class GameWorld {
     }
 
     public void createObjects() {
-        Ship player = new Ship(Constants.WIDTH / 2 - 26 / 2, Constants.HEIGHT - 150, GameObjectType.Player, 5.0f);
+        Ship player = new Ship(Constants.WIDTH / 2 - 26 / 2, Constants.HEIGHT - 150, GameObjectType.Player, 5.0f, 0.08);
         conducting.addGameObject(player);
     }
 }
