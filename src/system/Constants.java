@@ -2,8 +2,8 @@ package system;
 
 public class Constants {
     //Frame------------------------------------------------------------------------------------------------------------
-    public static int WIDTH = 800;
-    public static int HEIGHT = 550;
+    public static int WIDTH = 0;
+    public static int HEIGHT = 0;
 
     //FPS--------------------------------------------------------------------------------------------------------------
     public static final int NANOTIME = 1000000000;

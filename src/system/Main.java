@@ -64,11 +64,7 @@ public class Main extends JFrame implements Runnable {
         final GroupLayout gl = new GroupLayout(getContentPane());
         getContentPane().setLayout(gl);
 
-        gl.setAutoCreateGaps(true);
-        gl.setAutoCreateContainerGaps(true);
-
         gl.setHorizontalGroup(gl.createParallelGroup().addComponent(canvas));
-
         gl.setVerticalGroup(gl.createSequentialGroup().addComponent(canvas));
     }
 
@@ -82,7 +78,10 @@ public class Main extends JFrame implements Runnable {
         final int windowWidth = (int) (screenSize.width * 0.80);
         final int windowHeight = (int) (screenSize.height * 0.80);
 
+        canvas.setMinimumSize(new Dimension(windowWidth, windowHeight));
         canvas.setPreferredSize(new Dimension(windowWidth, windowHeight));
+        canvas.setMaximumSize(new Dimension(windowWidth, windowHeight));
+
         Constants.WIDTH = windowWidth;
         Constants.HEIGHT = windowHeight;
 
@@ -145,18 +144,6 @@ public class Main extends JFrame implements Runnable {
         }
     }
 
-    private void render(Graphics graphics, double time) {
-        //Cleaning the canvas
-        graphics.setColor(Color.BLACK);
-        graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        //Drawing FPS and another information
-        graphics.setColor(Color.WHITE);
-        graphics.drawString("FPS: %d, APS: %d, Running Time: %d".formatted(fps, aps, ((int) time)), 10, 15);
-        conducting.render(graphics);
-    }
-
     private void render() {
         BufferStrategy bs = canvas.getBufferStrategy();
         if (bs == null) {
@@ -173,6 +160,18 @@ public class Main extends JFrame implements Runnable {
         g.dispose();
         bs.show();
         cfpd++;
+    }
+
+    private void render(Graphics graphics, double time) {
+        //Cleaning the canvas
+        graphics.setColor(Color.BLACK);
+        graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        //Drawing FPS and another information
+        graphics.setColor(Color.WHITE);
+        graphics.drawString("FPS: %d, APS: %d, Running Time: %d".formatted(fps, aps, ((int) time)), 10, 15);
+        conducting.render(graphics);
     }
 
     private String formatRunTime() {
@@ -256,6 +255,7 @@ public class Main extends JFrame implements Runnable {
     @Override
     public void run() {
         System.out.println("Game started successfully!");
+
         running = true;
 
         runMainGameLoop();
