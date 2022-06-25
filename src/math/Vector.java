@@ -3,30 +3,39 @@ package math;
 public class Vector {
     private float x, y;
 
-    public Vector(float x, float y) {
+    public Vector(float x, float y){
         this.x = x;
         this.y = y;
     }
 
-    public Vector() {
+    public Vector(){
         this.x = 0.0f;
         this.y = 0.0f;
     }
 
-    public Vector sum(Vector vector) {
-        return new Vector(x + vector.x, y + vector.y);
+    public Vector sum(Vector vector){
+        return new Vector(x+vector.x, y+ vector.y);
     }
 
-    public Vector scale(double value) {
-        return new Vector((float) (x * value), (float) (y * value));
+    public Vector scale(double value){
+        return new Vector((float) (x*value), (float) (y*value));
     }
 
-    public double getMagnitude() {
-        return Math.sqrt(Math.pow(x, 2) + Math.pow(x, 2));
+    public Vector maxVelLimit(double limit){
+        if (getMagnitude() > limit) return this.normalize().scale(limit);
+        return this;
     }
 
-    public Vector setDirection(double angle) {
-        return new Vector((float) ((float) Math.cos(angle) * getMagnitude()), (float) ((float) Math.sin(angle) * getMagnitude()));
+    public Vector normalize(){
+        return new Vector((float) (x/getMagnitude()), (float) (y/getMagnitude()));
+    }
+
+    public double getMagnitude(){
+        return Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2));
+    }
+
+    public Vector setDirection(double angle){
+        return new Vector((float) ((float) Math.cos(angle)*getMagnitude()), (float) ((float) Math.sin(angle)*getMagnitude()));
     }
 
 

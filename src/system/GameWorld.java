@@ -1,16 +1,18 @@
 package system;
 
+import object.GameObjectType;
 import object.Ship;
 
 public class GameWorld {
-    private final GameConducting conducting;
+    private Ship player;
+    private GameConducting conducting;
 
-    public GameWorld(GameConducting conducting) {
+    public GameWorld(GameConducting conducting){
         this.conducting = conducting;
+        player = new Ship(Constants.WIDTH/2-26/2, Constants.HEIGHT-150, GameObjectType.Player, 5.0f);
     }
 
-    public void createObjects() {
-        Ship player = new Ship(Constants.WIDTH / 2 - 26 / 2, Constants.HEIGHT - 150, 5.0f);
+    public void createObjects(){
         conducting.addGameObject(player);
     }
 }
