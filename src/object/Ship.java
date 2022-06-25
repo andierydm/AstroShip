@@ -1,6 +1,6 @@
 package object;
 
-import input.KeyBoard;
+import system.input.KeyboardInput;
 import math.Vector;
 
 import javax.imageio.ImageIO;
@@ -46,13 +46,13 @@ public class Ship extends GameObject {
 
     @Override
     public void update(long deltaTime) {
-        if (KeyBoard.up){
+        if (KeyboardInput.up){
             aceleration = direction.scale(defaultMagnitude);
             System.out.println(velocity.getX()+" "+ velocity.getY());
         }
 
-        if (KeyBoard.right) angle += Math.PI/16;
-        if (KeyBoard.left) angle -= Math.PI/16;
+        if (KeyboardInput.right) angle += Math.PI/16;
+        if (KeyboardInput.left) angle -= Math.PI/16;
 
         velocity = velocity.sum(aceleration);
 

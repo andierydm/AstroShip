@@ -1,9 +1,9 @@
-package main;
+package system;
 
-public class Constantes {
+public class Constants {
     //Frame------------------------------------------------------------------------------------------------------------
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 550;
+    public static int WIDTH = 800;
+    public static int HEIGHT = 550;
 
     //FPS--------------------------------------------------------------------------------------------------------------
     public static final int NANOTIME = 1000000000;

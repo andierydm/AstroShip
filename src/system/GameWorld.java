@@ -1,15 +1,14 @@
 package system;
 
-import main.Constantes;
 import object.Ship;
 
-public class CreateWorld {
+public class GameWorld {
     private Ship player;
     private GameConducting conducting;
 
-    public CreateWorld(GameConducting conducting){
+    public GameWorld(GameConducting conducting){
         this.conducting = conducting;
-        player = new Ship(Constantes.WIDTH/2-26/2, Constantes.HEIGHT-150, 5.0f);
+        player = new Ship(Constants.WIDTH/2-26/2, Constants.HEIGHT-150, 5.0f);
     }
 
     public void createObjects(){

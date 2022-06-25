@@ -1,13 +1,13 @@
-package input;
+package system.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyBoard implements KeyListener {
-    private boolean[] keys;
+public class KeyboardInput implements KeyListener {
+    private final boolean[] keys;
     public static boolean right, left, up, down, exits;
 
-    public KeyBoard(){
+    public KeyboardInput(){
         keys = new boolean[255];
         right = false;
         left = false;
