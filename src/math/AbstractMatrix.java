@@ -23,4 +23,31 @@ public abstract class AbstractMatrix<T extends Number> implements MatrixInterfac
             }
         }
     }
+
+    public void fillWithValue(T value) {
+        runColumnsFirst((row, column, actualValue) -> {
+            setValueAt(row, column, value);
+            return null;
+        });
+
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+
+        runColumnsFirst((row, column, actualValue) -> {
+            sb.append(actualValue);
+
+            if (column + 1 == getColumnsCount()) {
+                sb.append("\n");
+            } else {
+                sb.append(", ");
+            }
+
+            return null;
+        });
+
+        return sb.toString();
+    }
 }

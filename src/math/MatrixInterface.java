@@ -11,5 +11,5 @@ public interface MatrixInterface<T extends Number> {
 
     void addValue(T value);
 
-    void substractValue(T value);
+    void subtractValue(T value);
 }

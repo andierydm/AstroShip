@@ -1,9 +1,9 @@
 package math;
 
-public abstract class FixedMatrix extends AbstractMatrix<Integer> {
+public class FixedIntegerMatrix extends AbstractMatrix<Integer> {
     private final Integer[][] values;
 
-    private FixedMatrix(int rows, int columns) {
+    public FixedIntegerMatrix(int rows, int columns) {
         if (rows <= 0) {
             throw new IllegalArgumentException("rows have to be greater than 0");
         } else if (columns <= 0) {
@@ -11,10 +11,11 @@ public abstract class FixedMatrix extends AbstractMatrix<Integer> {
         }
 
         values = new Integer[rows][columns];
+        fillWithValue(0);
     }
 
-    private boolean isPositionValid(int row, int column) {
-        return (row >= 0 && row < getRowsCount()) && (column >= 0 && column < getColumnsCount());
+    private boolean isNotValidPosition(int row, int column) {
+        return (row < 0 || row >= getRowsCount()) || (column < 0 || column >= getColumnsCount());
     }
 
     @Override
@@ -29,7 +30,7 @@ public abstract class FixedMatrix extends AbstractMatrix<Integer> {
 
     @Override
     public Integer getValueAt(int row, int column) {
-        if (!isPositionValid(row, column)) {
+        if (isNotValidPosition(row, column)) {
             throw new IllegalArgumentException("row or column out of range");
         }
 
@@ -38,7 +39,7 @@ public abstract class FixedMatrix extends AbstractMatrix<Integer> {
 
     @Override
     public void setValueAt(int row, int column, Integer value) {
-        if (!isPositionValid(row, column)) {
+        if (isNotValidPosition(row, column)) {
             throw new IllegalArgumentException("row or column out of range");
         }
 
@@ -47,9 +48,11 @@ public abstract class FixedMatrix extends AbstractMatrix<Integer> {
 
     @Override
     public void addValue(Integer value) {
-        runColumnsFirst((row, column, actualValue) -> {
+        runColumnsFirst((row, column, actualValue) -> actualValue + value);
+    }
 
-            return null;
-        });
+    @Override
+    public void subtractValue(Integer value) {
+        runColumnsFirst((row, column, actualValue) -> actualValue - value);
     }
 }

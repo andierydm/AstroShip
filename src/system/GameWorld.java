@@ -4,15 +4,14 @@ import object.GameObjectType;
 import object.Ship;
 
 public class GameWorld {
-    private Ship player;
-    private GameConducting conducting;
+    private final GameConducting conducting;
 
-    public GameWorld(GameConducting conducting){
+    public GameWorld(GameConducting conducting) {
         this.conducting = conducting;
-        player = new Ship(Constants.WIDTH/2-26/2, Constants.HEIGHT-150, GameObjectType.Player, 5.0f);
     }
 
-    public void createObjects(){
+    public void createObjects() {
+        Ship player = new Ship(Constants.WIDTH / 2 - 26 / 2, Constants.HEIGHT - 150, GameObjectType.Player, 5.0f);
         conducting.addGameObject(player);
     }
 }
