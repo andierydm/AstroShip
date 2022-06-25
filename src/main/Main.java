@@ -28,7 +28,7 @@ public class Main extends JFrame implements Runnable{
         this.setSize(Constantes.WIDTH, Constantes.HEIGHT);
         this.setLocationRelativeTo(null);
 
-        clouseingComant();
+        closingCommand();
 
         canvas.requestFocus();
     }
@@ -79,7 +79,7 @@ public class Main extends JFrame implements Runnable{
         System.exit(0);
     }
 
-    private void clouseingComant(){
+    private void closingCommand(){
         this.addWindowListener(new WindowAdapter() {
             /**
              * Invoked when a window is in the process of being closed.

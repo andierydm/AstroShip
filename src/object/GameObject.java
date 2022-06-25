@@ -7,6 +7,7 @@ public abstract class GameObject {
     private float y;
     private float maxVel;
     private final GameObjectType gameObjectType;
+    protected double angle;
 
     public GameObject(GameObjectType gameObjectType) {
         if (gameObjectType == null) {
@@ -17,6 +18,7 @@ public abstract class GameObject {
         this.y = 0;
         this.maxVel = 3.0f;
         this.gameObjectType = gameObjectType;
+        this.angle = 0;
     }
 
     public GameObject(float x, float y, float maxVel, GameObjectType gameObjectType) {
@@ -28,6 +30,7 @@ public abstract class GameObject {
         this.y = y;
         this.maxVel = maxVel;
         this.gameObjectType = gameObjectType;
+        this.angle = 0;
     }
 
     public abstract void update(long deltaTime);

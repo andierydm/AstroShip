@@ -9,7 +9,7 @@ public class CreateWorld {
 
     public CreateWorld(GameConducting conducting){
         this.conducting = conducting;
-        player = new Ship(Constantes.WIDTH/2-26/2, Constantes.HEIGHT-76, 5.0f);
+        player = new Ship(Constantes.WIDTH/2-26/2, Constantes.HEIGHT-150, 5.0f);
     }
 
     public void createObjects(){
