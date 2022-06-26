@@ -4,6 +4,7 @@ import system.collision.CollisionShape;
 import system.input.AnotherKeyboardInput;
 import system.input.KeyboardInput;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -11,6 +12,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class Main extends JFrame implements Runnable {
     private byte cfpd, fps;
@@ -24,8 +30,10 @@ public class Main extends JFrame implements Runnable {
     private final GameWorld world = new GameWorld(conducting);
     private final KeyboardInput keyboardInput = new KeyboardInput();
     private final String GAME_THREAD_IDENTIFIER = "GameThread";
+    private Image ship = null;
 
     public Main() {
+        initResources();
         initComponent();
         canvas.requestFocus();
     }
@@ -121,6 +129,13 @@ public class Main extends JFrame implements Runnable {
         setVisible(true);
     }
 
+    private void initResources() {
+        if (!ResourceManager.loadImages()) {
+            JOptionPane.showConfirmDialog(null, "Could not localize one of the resources");
+            System.exit(-1);
+        }
+    }
+
     public void startGameThread() {
         if (running) return;
 
@@ -165,7 +180,8 @@ public class Main extends JFrame implements Runnable {
         CollisionShape cs = CollisionShape.createBoxShape(25, 25);
         cs.moveShape(0, 150);
 
-        Polygon p = cs.toPolython();
+        Polygon p = cs.toPolygon();
+
         g.drawPolygon(p);
         //start draw whatever------------------------------------------------------------------------------------------
         g.drawString("FPS: " + fps + ", APS: " + aps + ", Run time: " + formatRunTime(), 10, 15);

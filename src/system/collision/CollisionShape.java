@@ -35,7 +35,7 @@ public class CollisionShape {
         return xa0 > xa1 && xa0 < xb1;
     }
 
-    public Polygon toPolython() {
+    public Polygon toPolygon() {
 
         int[] x = Arrays.stream(fixedIntegerMatrix.getRowValues(0)).mapToInt(Integer::intValue).toArray();
         int[] y = Arrays.stream(fixedIntegerMatrix.getRowValues(1)).mapToInt(Integer::intValue).toArray();

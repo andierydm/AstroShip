@@ -1,6 +1,7 @@
 package object;
 
 import math.Vector;
+import system.ResourceManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -8,7 +9,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class ShipsObject extends GameObject{
+public class ShipsObject extends GameObject {
     protected Vector direction;
     protected Vector velocity;
     private BufferedImage texture;
@@ -20,30 +21,26 @@ public class ShipsObject extends GameObject{
 
     public ShipsObject(GameObjectType gameObjectType) {
         super(gameObjectType);
-        maxvel= 5.0f;
+        maxvel = 5.0f;
         defaultMagnitude = 0.08;
         aceleration = new Vector();
         velocity = new Vector();
-        direction = new Vector(0,1);
+        direction = new Vector(0, 1);
         this.angle = 0;
     }
 
     public ShipsObject(float x, float y, GameObjectType gameObjectType) {
         super(x, y, gameObjectType);
-        maxvel= 5.0f;
+        maxvel = 5.0f;
         defaultMagnitude = 0.08;
         aceleration = new Vector();
         velocity = new Vector();
-        direction = new Vector(0,1);
+        direction = new Vector(0, 1);
         this.angle = 0;
     }
 
-    protected void loadTexture(String path){
-        try {
-            texture = ImageIO.read(ShipsObject.class.getClassLoader().getResource(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    protected void loadTexture(String path) {
+        texture = ResourceManager.toBufferedImage(ResourceManager.ship);
     }
 
     @Override
@@ -54,6 +51,8 @@ public class ShipsObject extends GameObject{
     public void render(Graphics graphics) {
     }
 
-    public BufferedImage getTexture(){return texture;}
+    public BufferedImage getTexture() {
+        return texture;
+    }
 
 }
