@@ -40,7 +40,7 @@ public class ShipsObject extends GameObject{
 
     protected void loadTexture(String path){
         try {
-            texture = ImageIO.read(ShipsObject.class.getResource(path));
+            texture = ImageIO.read(ShipsObject.class.getClassLoader().getResource(path));
         } catch (IOException e) {
             e.printStackTrace();
         }

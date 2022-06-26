@@ -10,7 +10,11 @@ public abstract class AbstractMatrix<T extends Number> implements MatrixInterfac
         int column = 0;
 
         while (true) {
-            runner.run(row, column, getValueAt(row, column));
+            final T value = runner.run(row, column, getValueAt(row, column));
+
+            if (value != null) {
+                setValueAt(row, column, value);
+            }
 
             column++;
 
@@ -25,10 +29,7 @@ public abstract class AbstractMatrix<T extends Number> implements MatrixInterfac
     }
 
     public void fillWithValue(T value) {
-        runColumnsFirst((row, column, actualValue) -> {
-            setValueAt(row, column, value);
-            return null;
-        });
+        runColumnsFirst((row, column, actualValue) -> value);
 
     }
 

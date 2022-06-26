@@ -9,12 +9,12 @@ public class Ship extends ShipsObject {
 
     public Ship() {
         super(GameObjectType.Player);
-        loadTexture("../resource/nave.png");
+        loadTexture("nave.png");
     }
 
     public Ship(float x, float y, GameObjectType type, float maxVel, double defaultMagnitude) {
         super(x, y, type);
-        loadTexture("../resource/nave.png");
+        loadTexture("nave.png");
         this.defaultMagnitude = defaultMagnitude;
         this.maxvel= maxVel;
     }

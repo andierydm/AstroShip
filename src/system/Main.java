@@ -1,5 +1,6 @@
 package system;
 
+import system.collision.CollisionShape;
 import system.input.KeyboardInput;
 
 import javax.swing.*;
@@ -32,7 +33,7 @@ public class Main extends JFrame implements Runnable {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                stopGameThread();
+                closeGame();
             }
         });
 
@@ -108,7 +109,7 @@ public class Main extends JFrame implements Runnable {
         setTitle("AstroShip - %dx%d".formatted(windowWidth, windowHeight));
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
     }
 
@@ -147,9 +148,16 @@ public class Main extends JFrame implements Runnable {
             canvas.createBufferStrategy(2);
             return;
         }
+
         Graphics g = bs.getDrawGraphics();
         g.clearRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
         g.setColor(Color.WHITE);
+
+        CollisionShape cs = CollisionShape.createBoxShape(25, 25);
+        cs.moveShape(0, 150);
+
+        Polygon p = cs.toPolython();
+        g.drawPolygon(p);
         //start draw whatever------------------------------------------------------------------------------------------
         g.drawString("FPS: " + fps + ", APS: " + aps + ", Run time: " + formatRunTime(), 10, 15);
         conducting.render(g);
