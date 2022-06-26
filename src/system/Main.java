@@ -1,6 +1,7 @@
 package system;
 
 import system.collision.CollisionShape;
+import system.input.AnotherKeyboardInput;
 import system.input.KeyboardInput;
 
 import javax.swing.*;
@@ -42,9 +43,16 @@ public class Main extends JFrame implements Runnable {
         canvas.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                AnotherKeyboardInput.getInstance().keyPressed(e);
+
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     closeGame();
                 }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                AnotherKeyboardInput.getInstance().keyPressed(e);
             }
         });
     }
@@ -138,6 +146,7 @@ public class Main extends JFrame implements Runnable {
     }
 
     private void update(int dt) {
+        AnotherKeyboardInput.getInstance().poll();
         keyboardInput.refresh();
         conducting.update(dt);
     }
