@@ -7,7 +7,7 @@ public class Constants {
 
     //FPS--------------------------------------------------------------------------------------------------------------
     public static final int NANOTIME = 1000000000;
-    private static final byte FPS = 72;
+    private static final byte FPS = 75;
     public static final double TIME = NANOTIME / FPS;
 
     //MatrizSystem------------------------------------------------------------------------------------------------------

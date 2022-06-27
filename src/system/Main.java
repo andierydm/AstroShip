@@ -31,6 +31,7 @@ public class Main extends JFrame implements Runnable {
     private final KeyboardInput keyboardInput = new KeyboardInput();
     private final String GAME_THREAD_IDENTIFIER = "GameThread";
     private Image ship = null;
+    private SystemTimer time;
 
     public Main() {
         initResources();
@@ -60,7 +61,7 @@ public class Main extends JFrame implements Runnable {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                AnotherKeyboardInput.getInstance().keyPressed(e);
+                AnotherKeyboardInput.getInstance().keyReleased(e);
             }
         });
     }
@@ -86,6 +87,9 @@ public class Main extends JFrame implements Runnable {
     }
 
     private void initComponent() {
+        preStart = System.nanoTime();
+        timer = System.nanoTime();
+
         if (GraphicsEnvironment.getLocalGraphicsEnvironment().isHeadlessInstance()) {
             System.err.println("Could not init game in a headless mode");
             System.exit(-1);
@@ -102,6 +106,8 @@ public class Main extends JFrame implements Runnable {
         Constants.WIDTH = windowWidth;
         Constants.HEIGHT = windowHeight;
 
+        time = new SystemTimer();
+
         initListeners();
         createLayout();
 
@@ -109,9 +115,6 @@ public class Main extends JFrame implements Runnable {
 
         canvas.createBufferStrategy(2);
         startGameThread();
-
-        preStart = System.nanoTime();
-        timer = System.nanoTime();
 
         canvas.setBackground(Color.BLACK);
 
@@ -184,12 +187,19 @@ public class Main extends JFrame implements Runnable {
 
         g.drawPolygon(p);
         //start draw whatever------------------------------------------------------------------------------------------
-        g.drawString("FPS: " + fps + ", APS: " + aps + ", Run time: " + formatRunTime(), 10, 15);
+        g.drawString("FPS: " + fps + ", APS: " + aps + ", Run time: " + time.getRunTimeText(), 10, 15);
         conducting.render(g);
         //end draw-----------------------------------------------------------------------------------------------------
         g.dispose();
         bs.show();
         cfpd++;
+        if(AnotherKeyboardInput.getInstance().keyDown(KeyEvent.VK_R)){
+            this.stopGameThread();
+            System.exit(0);
+            new Main().startGameThread();
+
+        }
+        //time.plusF();
     }
 
     private void render(Graphics graphics, double time) {
@@ -279,6 +289,8 @@ public class Main extends JFrame implements Runnable {
                 cfpd = 0;
                 caps = 0;
             }
+            //time.plusA();
+            //time.systemShowTime(timer);
         }
     }
 

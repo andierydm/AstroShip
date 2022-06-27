@@ -1,6 +1,7 @@
 package object;
 
 import math.Vector;
+import system.GameConducting;
 import system.ResourceManager;
 
 import javax.imageio.ImageIO;
@@ -12,12 +13,14 @@ import java.io.IOException;
 public class ShipsObject extends GameObject {
     protected Vector direction;
     protected Vector velocity;
-    private BufferedImage texture;
+    private BufferedImage texture, turbo;
     protected AffineTransform at;
+    protected AffineTransform att;
     protected double defaultMagnitude;
     protected Vector aceleration;
     protected float maxvel;
     protected double angle;
+    protected GameConducting conduting;
 
     public ShipsObject(GameObjectType gameObjectType) {
         super(gameObjectType);
@@ -29,7 +32,7 @@ public class ShipsObject extends GameObject {
         this.angle = 0;
     }
 
-    public ShipsObject(float x, float y, GameObjectType gameObjectType) {
+    public ShipsObject(float x, float y, GameObjectType gameObjectType, GameConducting conducting) {
         super(x, y, gameObjectType);
         maxvel = 5.0f;
         defaultMagnitude = 0.08;
@@ -37,10 +40,24 @@ public class ShipsObject extends GameObject {
         velocity = new Vector();
         direction = new Vector(0, 1);
         this.angle = 0;
+        this.conduting = conducting;
+    }
+
+    protected void loadTexture() {
+        texture = ResourceManager.toBufferedImage(ResourceManager.ship);
+
     }
 
     protected void loadTexture(String path) {
-        texture = ResourceManager.toBufferedImage(ResourceManager.ship);
+        try {
+            turbo = ImageIO.read(ShipsObject.class.getClassLoader().getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected Vector getCenter(){
+        return new Vector(getX()+texture.getWidth()/2-26/2, getY()+texture.getHeight()/2);
     }
 
     @Override
@@ -53,6 +70,10 @@ public class ShipsObject extends GameObject {
 
     public BufferedImage getTexture() {
         return texture;
+    }
+
+    public BufferedImage getTurbo() {
+        return turbo;
     }
 
 }

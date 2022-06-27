@@ -8,6 +8,7 @@ import java.net.URL;
 
 public class ResourceManager {
     public static Image ship = null;
+    public static Image turbo = null;
 
     public static boolean isImageDimensionSet(Image image) {
         if (image == null) {
@@ -61,10 +62,13 @@ public class ResourceManager {
     public static boolean loadImages() {
         try {
             URL shipURL = ResourceManager.class.getClassLoader().getResource("ship.png");
+            URL turboURL = ResourceManager.class.getClassLoader().getResource("fire02.png");
 
-            if (shipURL != null) {
+            if (shipURL != null && turboURL != null) {
                 Image image = ImageIO.read(shipURL);
-                ship = ResourceManager.resizeImage(image, 130);
+                Image imageT = ImageIO.read(turboURL);
+                ship = ResourceManager.resizeImage(image, 76);
+                turbo = ResourceManager.resizeImage(imageT, 76);
             }
 
             return true;

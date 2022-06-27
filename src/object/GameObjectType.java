@@ -1,5 +1,6 @@
 package object;
 
 public enum GameObjectType {
-    Player
+    Player,
+    Bullet;
 }

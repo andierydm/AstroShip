@@ -1,24 +1,24 @@
 package math;
 
 public class Vector {
-    private float x, y;
+    private double x, y;
 
-    public Vector(float x, float y){
+    public Vector(double x, double y){
         this.x = x;
         this.y = y;
     }
 
     public Vector(){
-        this.x = 0.0f;
-        this.y = 0.0f;
+        this.x = 0.0;
+        this.y = 0.0;
     }
 
     public Vector sum(Vector vector){
-        return new Vector(x+vector.x, y+ vector.y);
+        return new Vector(x+vector.x, y+vector.y);
     }
 
     public Vector scale(double value){
-        return new Vector((float) (x*value), (float) (y*value));
+        return new Vector(x*value, y*value);
     }
 
     public Vector maxVelLimit(double limit){
@@ -31,17 +31,17 @@ public class Vector {
     }
 
     public double getMagnitude(){
-        return Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2));
+        return Math.sqrt(x*x + y*y);
     }
 
     public Vector setDirection(double angle){
-        return new Vector((float) ((float) Math.cos(angle)*getMagnitude()), (float) ((float) Math.sin(angle)*getMagnitude()));
+        return new Vector(Math.cos(angle)*getMagnitude(), Math.sin(angle)*getMagnitude());
     }
 
 
     //Getter and Setter-------------------------------------------------------------------------------------------------
 
-    public float getX() {
+    public double getX() {
         return x;
     }
 
@@ -49,7 +49,7 @@ public class Vector {
         this.x = x;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 
