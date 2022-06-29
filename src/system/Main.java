@@ -133,6 +133,10 @@ public class Main extends JFrame implements Runnable {
     }
 
     private void initResources() {
+        ResourceManager.loadResource()
+                .loadImage("ship.png", "ship", information -> ResourceManager.resizeImage(information.getImage(), 100))
+                .finish();
+
         if (!ResourceManager.loadImages()) {
             JOptionPane.showConfirmDialog(null, "Could not localize one of the resources");
             System.exit(-1);

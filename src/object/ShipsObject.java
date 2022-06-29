@@ -44,8 +44,7 @@ public class ShipsObject extends GameObject {
     }
 
     protected void loadTexture() {
-        texture = ResourceManager.toBufferedImage(ResourceManager.ship);
-
+        texture = ResourceManager.toBufferedImage(ResourceManager.findImageResource("ship"));
     }
 
     protected void loadTexture(String path) {
