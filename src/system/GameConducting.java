@@ -41,4 +41,6 @@ public class GameConducting {
 
         gameObjects.remove(gameObject);
     }
+
+    public List<GameObject> getList(){return gameObjects;}
 }

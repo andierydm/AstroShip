@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 public class Bullet extends ShipsObject{
+    //private String to;
+
     public Bullet(GameObjectType gameObjectType) {
         super(gameObjectType);
     }
@@ -18,18 +20,18 @@ public class Bullet extends ShipsObject{
         this.velocity = velocity.scale(maxVel);
     }
 
+    //public String getTo(){return to;}
+
     @Override
     public void update(long deltaTime) {
         setX((float) (getX()+velocity.getX()));
         setY((float) (getY()+velocity.getY()));
 
         if(getX() > Constants.WIDTH || getX() < 0){
-            if (getY() > Constants.HEIGHT || getY() < 0 )
                 conduting.removeGameObject(this);
         }
 
         if(getY() > Constants.HEIGHT || getY() < 0){
-            if (getX() > Constants.HEIGHT || getX() < 0 )
                 conduting.removeGameObject(this);
         }
     }

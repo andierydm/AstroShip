@@ -37,6 +37,7 @@ public class Main extends JFrame implements Runnable {
         initResources();
         initComponent();
         canvas.requestFocus();
+
     }
 
     private void initListeners() {
@@ -191,19 +192,24 @@ public class Main extends JFrame implements Runnable {
 
         g.drawPolygon(p);
         //start draw whatever------------------------------------------------------------------------------------------
-        g.drawString("FPS: " + fps + ", APS: " + aps + ", Run time: " + time.getRunTimeText(), 10, 15);
+        g.drawString("FPS: " + fps + ", APS: " + aps + ", Run time: " + formatRunTime(), 10, 15);
         conducting.render(g);
         //end draw-----------------------------------------------------------------------------------------------------
         g.dispose();
         bs.show();
         cfpd++;
+        //time.plusF();
         if(AnotherKeyboardInput.getInstance().keyDown(KeyEvent.VK_R)){
-            this.stopGameThread();
-            System.exit(0);
-            new Main().startGameThread();
+            if (JOptionPane.showConfirmDialog(
+                    null,
+                    "Do you want to reset the game?",
+                    "Reset Game",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION
+            ) {
+                new Main().startGameThread();
+            }
 
         }
-        //time.plusF();
     }
 
     private void render(Graphics graphics, double time) {
@@ -280,6 +286,7 @@ public class Main extends JFrame implements Runnable {
             preStart = start;
             while (delta >= 1) {
                 update(seconds);
+                world.createEnemy(seconds);
                 render();
                 delta--;
             }

@@ -56,7 +56,7 @@ public class ShipsObject extends GameObject {
     }
 
     protected Vector getCenter(){
-        return new Vector(getX()+texture.getWidth()/2-26/2, getY()+texture.getHeight()/2);
+        return new Vector(getX()+texture.getWidth()/2-27/2, getY()+texture.getHeight()/2);
     }
 
     @Override

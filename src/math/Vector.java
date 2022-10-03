@@ -2,6 +2,7 @@ package math;
 
 public class Vector {
     private double x, y;
+    private Vector direction;
 
     public Vector(double x, double y){
         this.x = x;
@@ -34,8 +35,32 @@ public class Vector {
         return Math.sqrt(x*x + y*y);
     }
 
+    public double getAngle(){
+        return Math.asin(y/getMagnitude());
+    }
+
+    public double crossProduct(Vector vector) {
+        return x * vector.y - y * vector.x;
+    }
+
+    public double dotProduct(Vector vector) {
+        return x * vector.x + y * vector.y;
+    }
+
+    public double angleBetweenDot(Vector vector) {
+        return 180.0 - Math.toDegrees(Math.asin((Math.sqrt(Math.pow(crossProduct(vector), 2))) / (getMagnitude() * vector.getMagnitude())));
+    }
+
+    public double angleBetweenCross(Vector vector) {
+        return Math.toDegrees(Math.acos(dotProduct(vector) / (getMagnitude() * vector.getMagnitude())));
+    }
+
     public Vector setDirection(double angle){
-        return new Vector(Math.cos(angle)*getMagnitude(), Math.sin(angle)*getMagnitude());
+        return direction = new Vector(Math.cos(angle)*getMagnitude(), Math.sin(angle)*getMagnitude());
+    }
+
+    public Vector getDirection(){
+        return direction;
     }
 
 
