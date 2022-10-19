@@ -5,8 +5,6 @@ import object.GameObjectType;
 import object.Ship;
 
 public class GameWorld {
-    private final GameConducting conducting;
-
     public GameWorld(GameConducting conducting) {
         this.conducting = conducting;
         enemyTime = 0;
@@ -24,11 +22,10 @@ public class GameWorld {
             conducting.addGameObject(new Enemy((float) (Math.random()*Constants.WIDTH-50), -150, GameObjectType.Enemy, 10.2f, 0.09, conducting));
             conducting.addGameObject(new Enemy((float) (Math.random()*Constants.WIDTH-50), -150, GameObjectType.Enemy, 10.2f, 0.09, conducting));
             conducting.addGameObject(new Enemy((float) (Math.random()*Constants.WIDTH-50), -150, GameObjectType.Enemy, 10.2f, 0.09, conducting));
-            conducting.addGameObject(new Enemy((float) (Math.random()*Constants.WIDTH-50), -150, GameObjectType.Enemy, 10.2f, 0.09, conducting));
-            conducting.addGameObject(new Enemy((float) (Math.random()*Constants.WIDTH-50), -150, GameObjectType.Enemy, 10.2f, 0.09, conducting));
             enemyTime = time;
         }
     }
 
+    private final GameConducting conducting;
     private int enemyTime;
 }

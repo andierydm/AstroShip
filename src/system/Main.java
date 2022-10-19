@@ -1,5 +1,8 @@
 package system;
 
+import object.GameObject;
+import object.GameObjectType;
+import object.Ship;
 import system.collision.CollisionShape;
 import system.input.AnotherKeyboardInput;
 import system.input.KeyboardInput;
@@ -11,12 +14,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 
 public class Main extends JFrame implements Runnable {
     private byte cfpd, fps;
@@ -32,6 +37,7 @@ public class Main extends JFrame implements Runnable {
     private final String GAME_THREAD_IDENTIFIER = "GameThread";
     private Image ship = null;
     private SystemTimer time;
+    private CameraSystem cs;
 
     public Main() {
         initResources();
@@ -107,6 +113,8 @@ public class Main extends JFrame implements Runnable {
         Constants.WIDTH = windowWidth;
         Constants.HEIGHT = windowHeight;
 
+        cs = new CameraSystem(new Point2D.Float(0f,0f));
+
         time = new SystemTimer();
 
         initListeners();
@@ -172,6 +180,12 @@ public class Main extends JFrame implements Runnable {
         AnotherKeyboardInput.getInstance().poll();
         keyboardInput.refresh();
         conducting.update(dt);
+        List<GameObject> lo = conducting.getList();
+        lo.forEach(o -> {
+           if(o.getGameObjectType() == GameObjectType.Player){
+                cs.update(dt, (Ship) o);
+           }
+        });
     }
 
     private void render() {
@@ -182,18 +196,23 @@ public class Main extends JFrame implements Runnable {
         }
 
         Graphics g = bs.getDrawGraphics();
+        Graphics2D g2d = (Graphics2D) g;
         g.clearRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
         g.setColor(Color.WHITE);
+        //inicio de la camara-------------------------------------------------------------------------------------------
+        g2d.translate(cs.getPosition().getX(), cs.getPosition().getY());
 
-        CollisionShape cs = CollisionShape.createBoxShape(25, 25);
-        cs.moveShape(0, 150);
+        CollisionShape colS = CollisionShape.createBoxShape(25, 25);
+        colS.moveShape(0, 150);
 
-        Polygon p = cs.toPolygon();
+        Polygon p = colS.toPolygon();
 
         g.drawPolygon(p);
         //start draw whatever------------------------------------------------------------------------------------------
         g.drawString("FPS: " + fps + ", APS: " + aps + ", Run time: " + formatRunTime(), 10, 15);
         conducting.render(g);
+        //fin de la camara
+        g2d.translate(-cs.getPosition().getX(), -cs.getPosition().getY());
         //end draw-----------------------------------------------------------------------------------------------------
         g.dispose();
         bs.show();

@@ -66,7 +66,6 @@ public class Ship extends ShipsObject {
     @Override
     public void render(Graphics graphics) {
         Graphics2D g2d = (Graphics2D) graphics;
-
         att = AffineTransform.getTranslateInstance( getX()+getTexture().getWidth()/2-getTurbo().getWidth()/2-17,
                                                    getY()+getTexture().getHeight()-10);
         att.rotate(angle, getTurbo().getWidth()/2+17,-getTexture().getHeight()/2+9);
@@ -77,8 +76,10 @@ public class Ship extends ShipsObject {
 
         g2d.drawImage(getTexture(), at, null);
         //g2d.drawRect((int) getX(), (int) getY(), 25, 25);
-        if (acelerating)
+        if (acelerating) {
             g2d.drawImage(getTurbo().getScaledInstance(48, 56, BufferedImage.SCALE_SMOOTH), att, null);
+        }
+        g2d.drawString(getX()+" y: "+getY(), getX(), getY());
 
     }
 }
